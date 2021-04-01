@@ -17,7 +17,7 @@ def _extract():
     logger.info("Starting extract process")
     for news_site_uid in news_sites_uids:
         subprocess.run(["python", "scraper.py", news_site_uid], cwd="./extract")
-        subprocess.run(["find", ".", "-name", '{}*'.format(news_site_uid),
+        subprocess.run(["find", ".", "-name", "{}*".format(news_site_uid),
                         "-exec", "mv", "{}", "../transform/{}_.csv".format(news_site_uid), ";"], cwd="./extract")
 
 
@@ -28,7 +28,7 @@ def _transform():
         clean_data_filename = "clean_{}".format(dirty_data_filename)
         subprocess.run(["python", "newspaper_receipe.py", dirty_data_filename], cwd="./transform")
         subprocess.run(["rm", dirty_data_filename], cwd="./transform")
-        subprocess.run(["mv", clean_data_filename, "../load/{}".format(news_site_uid)], cwd="./transform")
+        subprocess.run(["mv", clean_data_filename, "../load/{}.csv".format(news_site_uid)], cwd="./transform")
 
 
 def _load():
